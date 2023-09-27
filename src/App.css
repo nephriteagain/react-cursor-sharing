@@ -1,0 +1,27 @@
+.box {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  position: relative;
+  overflow: hidden;
+}
+
+.cursor {
+  position: absolute;  
+  width: 20px;
+  height: 20px;
+  border-radius: 1rem;
+  transform: translate(-50%,-50%);
+}
+
+.client {
+  position: relative;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  width: fit-content;
+  border-radius: 1rem;
+  padding-inline: 0.3rem;
+  padding-block: 0.10rem;
+  font-size: 0.75rem;
+  background-color: white;
+}

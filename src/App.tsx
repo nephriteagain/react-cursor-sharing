@@ -59,7 +59,7 @@ useEffect(() => {
                 mouseMove(e, ws)
             }
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={() => {
             if (loading) {
                 return
             }

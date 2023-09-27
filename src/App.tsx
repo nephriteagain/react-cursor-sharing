@@ -1,7 +1,7 @@
 
 import './App.css'
 import { useWs } from './useWs'
-import { useEffect, useState,  MouseEvent } from 'react'
+import { useEffect, useState,  MouseEvent, useRef } from 'react'
 import Cursors from './Cursors'
 
 
@@ -27,12 +27,16 @@ function handleMouseMove() {
         }
     }
 }
+
+
+
 const mouseMove = handleMouseMove()
+
 
 const socketURL = import.meta.env.DEV ? import.meta.env.VITE_WEBSOCKET_DEV : import.meta.env.VITE_WEBSOCKET_PROD
 export default function App() {
     const [ cursors, setCursors ] = useState<{coordinates: {x:number,y:number}; clientId:string; color: string}[]>([])
-
+    const boxRef = useRef<HTMLDivElement>(null)
     const { ws, loading } = useWs(socketURL)
 
 
@@ -46,11 +50,13 @@ export default function App() {
     return () => ws.close()
 }, [ws])
 
-useEffect(() => {
-}, [cursors])
+
+
+
 
   return (
     <div className="box" 
+        ref={boxRef}
         onMouseMove={(e) => {
             if (loading) {
                 return
@@ -59,16 +65,8 @@ useEffect(() => {
                 mouseMove(e, ws)
             }
         }}
-        onMouseLeave={() => {
-            if (loading) {
-                return
-            }
-            const  coordinates = {x: -200, y: -200}
-            if (ws) {
-                ws.send(JSON.stringify(coordinates))
-            }
-        }}
-    >
+        
+        >
       <Cursors cursors={cursors} />
     </div>
   )
